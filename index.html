@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="bootstrap/js/jquery.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="bootstrap/js/angular.js"></script>
+
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/apigee.js"></script>
+  <script src="js/app.js"></script>
+
+
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>Scratchpad</title>
+</head>
+<body ng-app="ReviewNotifyApp">
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-2 col-lg-8">
+      <div class="panel panel-default" ng-controller="ReviewController as reviewCtrl">
+        <div class="panel-heading">
+          <span class="glyphicon glyphicon-thumbs-up"></span> &nbsp; <b>Reviews</b> &nbsp; <span class="badge"> {{reviews.length}} items </span>
+          <div class="dropdown panel-inline pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> <b class="caret"></b></a>
+            <ul class="dropdown-menu dropdown-menu-left">
+              <div class="list-group">
+                <a href="#" class="list-group-item no-border">
+                  <span class="badge"><span class="glyphicon glyphicon-asterisk"></span></span>
+                  <h4 class="list-group-item-heading">New review added.</h4>
+                  <p class="list-group-item-text">Showing {{reviews.length}} reviews.</p>
+                </a>
+              </div>
+            </ul>
+          </div>
+          <div class="panel-inline pull-top pull-right">
+            <a href="" class="lsf" target="_blank" title="View Source">github</a>
+          </div>
+          <div class="panel-inline pull-top pull-right">
+            <input type="text" class="form-control small" placeholder="Search" ng-model="query">
+          </div>
+          <div class="panel-inline pull-top pull-right">
+            <button type="button" id="btnReload" class="btn btn-default" ng-click="loadReviews()">
+              <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a href="#" class="list-group-item" ng-repeat="review in reviews | filter:query">
+              <span class="badge"> {{review.rating}} Stars </span>
+              <h4 class="list-group-item-heading">{{review.comments}}</h4>
+              <p class="list-group-item-text">{{review.email}}</p>
+            </a>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <span class="glyphicon glyphicon-pencil"></span> &nbsp; <b>Write your Review</b> <hr>
+          <form class="form-horizontal" name="reviewForm" role="form"
+                ng-submit="addReview(review); review = {};" novalidate>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" ng-model="review.email" class="form-control" id="inputEmail3" placeholder="Email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputComment" class="col-sm-2 control-label">Comments</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" ng-model="review.comments" id="inputComment" required> </textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Rating</label>
+              <div class="col-sm-3 divStars">
+                <span class="glyphicon glyphicon-star-empty" ordinal="1" ng-model="review.rating" ng-click="setReviewRating(1)"></span>
+                <span class="glyphicon glyphicon-star-empty" ordinal="2" ng-model="review.rating" ng-click="setReviewRating(2)"></span>
+                <span class="glyphicon glyphicon-star-empty" ordinal="3" ng-model="review.rating" ng-click="setReviewRating(3)"></span>
+                <span class="glyphicon glyphicon-star-empty" ordinal="4" ng-model="review.rating" ng-click="setReviewRating(4)"></span>
+                <span class="glyphicon glyphicon-star-empty" ordinal="5" ng-model="review.rating" ng-click="setReviewRating(5)"></span>
+              </div>
+              <div class="col-sm-4 col-sm-offset-3">
+                <input type="submit" class="btn btn-primary pull-right" id="btnSubmit" ng-disabled="reviewForm.$invalid">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
