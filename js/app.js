@@ -14,7 +14,6 @@
             get: function (handle) {
                 reviewsQry.fetch(handle);
             },
-            failed: client.restoreCollection(localStorage.getItem('reviews')),
             set: function (review, handler) {
                 reviewsQry.addEntity(review,handler);
             }
