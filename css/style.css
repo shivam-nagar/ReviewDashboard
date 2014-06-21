@@ -4,6 +4,7 @@
 }
 .panel {
   margin-top: 7px;
+  min-width:500px;
 }
 .pull-top {
   margin-top: -7px;
